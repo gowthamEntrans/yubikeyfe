@@ -6,8 +6,8 @@ const Login = () => {
     const [username, setUsername] = useState('');
 
     const handleLogin = async () => {
-        if (!window.u2f) {
-            alert('U2F not supported in this browser');
+        if (!window.u2f || !window.u2f.sign) {
+            alert('U2F not supported in this browser. Please use a compatible browser like Chrome or Firefox.');
             return;
         }
 
