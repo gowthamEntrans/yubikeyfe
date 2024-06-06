@@ -4,9 +4,9 @@ import axios from 'axios';
 function Authentication() {
   const authenticate = async () => {
     try {
-      const { data: authRequest } = await axios.post('http://localhost:3001/authentication-challenge', {}, { withCredentials: true });
+      const { data: authRequest } = await axios.post('https://yubikeybe.onrender.com/authentication-challenge', {}, { withCredentials: true });
       window.u2f.sign(authRequest.appId, authRequest.challenge, authRequest.registeredKeys, async (authResponse) => {
-        const response = await axios.post('http://localhost:3001/authentication-verify', { authResponse }, { withCredentials: true });
+        const response = await axios.post('https://yubikeybe.onrender.com/authentication-verify', { authResponse }, { withCredentials: true });
         if (response.status === 200) {
           alert('Authentication successful');
         } else {

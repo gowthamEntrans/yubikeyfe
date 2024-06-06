@@ -4,9 +4,9 @@ import axios from 'axios';
 function Registration() {
   const register = async () => {
     try {
-      const { data: regRequest } = await axios.post('http://localhost:3001/registration-challenge', {}, { withCredentials: true });
+      const { data: regRequest } = await axios.post('https://yubikeybe.onrender.com/registration-challenge', {}, { withCredentials: true });
       window.u2f.register(regRequest.appId, [regRequest], [], async (regResponse) => {
-        const response = await axios.post('http://localhost:3001/registration-verify', { registrationResponse: regResponse }, { withCredentials: true });
+        const response = await axios.post('https://yubikeybe.onrender.com/registration-verify', { registrationResponse: regResponse }, { withCredentials: true });
         if (response.status === 200) {
           alert('Registration successful');
         } else {
