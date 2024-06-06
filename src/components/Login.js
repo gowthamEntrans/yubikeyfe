@@ -1,38 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import * as u2fApi from 'u2f-api';
 
-const Login = () => {
-    const [username, setUsername] = useState('');
+function Login() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleLogin = async () => {
-        if (!window.u2f || !window.u2f.sign) {
-            alert('U2F not supported in this browser. Please use a compatible browser like Chrome or Firefox.');
-            return;
-        }
+  const login = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/login', { username, password }, { withCredentials: true });
+      if (response.status === 200) {
+        alert('Login successful');
+      } else {
+        alert('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login', error);
+    }
+  };
 
-        try {
-            const signRequest = await axios.post('https://yubikeybe.onrender.com/auth/signRequest', { username });
-            const signResponse = await u2fApi.sign(signRequest.data);
-            const result = await axios.post('https://yubikeybe.onrender.com/auth/signResponse', { username, signResponse });
-            alert(result.data);
-        } catch (error) {
-            console.error('Login error:', error);
-            alert('Login failed: ' + (error.response ? error.response.data : error.message));
-        }
-    };
-
-    return (
-        <div>
-            <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <button onClick={handleLogin}>Login</button>
-        </div>
-    );
-};
+  return (
+    <div>
+      <h2>Login</h2>
+      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={login}>Login</button>
+    </div>
+  );
+}
 
 export default Login;

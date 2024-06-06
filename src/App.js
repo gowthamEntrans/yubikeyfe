@@ -1,13 +1,20 @@
 import React from 'react';
-import Register from './components/Register';
+import './App.css';
 import Login from './components/Login';
+import Registration from './components/Registration';
+import Authentication from './components/Authentication';
 
-const App = () => (
-    <div>
-        <h1>U2F Authentication</h1>
-        <Register />
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>U2F Demo</h1>
         <Login />
+        <Registration />
+        <Authentication />
+      </header>
     </div>
-);
+  );
+}
 
 export default App;
