@@ -6,10 +6,11 @@ const Register = () => {
     const [username, setUsername] = useState('');
 
     const handleRegister = async () => {
-        if (!window.u2f || !window.u2f.register) {
-            alert('U2F not supported in this browser. Please use a compatible browser like Chrome or Firefox.');
-            return;
-        }
+        // Check if U2F is supported in the browser
+        // if (!window.u2f || !window.u2f.register) {
+        //     alert('U2F not supported in this browser. Please use a compatible browser like Chrome or Firefox.');
+        //     return;
+        // }
 
         try {
             const registerRequest = await axios.post('https://yubikeybe.onrender.com/auth/registerRequest', { username });
