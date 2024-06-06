@@ -6,6 +6,11 @@ const Login = () => {
     const [username, setUsername] = useState('');
 
     const handleLogin = async () => {
+        if (!window.u2f) {
+            alert('U2F not supported in this browser');
+            return;
+        }
+
         try {
             const signRequest = await axios.post('https://yubikeybe.onrender.com/auth/signRequest', { username });
             const signResponse = await u2fApi.sign(signRequest.data);
@@ -13,13 +18,18 @@ const Login = () => {
             alert(result.data);
         } catch (error) {
             console.error('Login error:', error);
-            alert('Login failed');
+            alert('Login failed: ' + (error.response ? error.response.data : error.message));
         }
     };
 
     return (
         <div>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+            <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+            />
             <button onClick={handleLogin}>Login</button>
         </div>
     );

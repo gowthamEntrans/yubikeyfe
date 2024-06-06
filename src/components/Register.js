@@ -6,6 +6,11 @@ const Register = () => {
     const [username, setUsername] = useState('');
 
     const handleRegister = async () => {
+        if (!window.u2f) {
+            alert('U2F not supported in this browser');
+            return;
+        }
+
         try {
             const registerRequest = await axios.post('https://yubikeybe.onrender.com/auth/registerRequest', { username });
             console.log('Register Request:', registerRequest.data);
@@ -17,13 +22,18 @@ const Register = () => {
             alert('Device registered successfully');
         } catch (error) {
             console.error('Registration error:', error);
-            alert('Registration failed');
+            alert('Registration failed: ' + (error.response ? error.response.data : error.message));
         }
     };
 
     return (
         <div>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+            <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+            />
             <button onClick={handleRegister}>Register</button>
         </div>
     );
