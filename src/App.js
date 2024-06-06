@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>U2F Demo</h1>
+        <h1>WebAuthn Demo</h1>
         <Register />
         <Authenticate />
       </header>
