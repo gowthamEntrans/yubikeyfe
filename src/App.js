@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { startRegistration, startAuthentication } from '@simplewebauthn/browser';
+import './App.css';
 
 const App = () => {
   const [username, setUsername] = useState('');
@@ -33,17 +34,22 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>WebAuthn Demo</h1>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <button onClick={handleRegister}>Register</button>
-      <button onClick={handleAuthenticate}>Authenticate</button>
-      <p>{message}</p>
+    <div className="container">
+      <h1 className="title">WebAuthn Demo</h1>
+      <div className="input-container">
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          className="input"
+        />
+      </div>
+      <div className="button-container">
+        <button onClick={handleRegister} className="button">Register</button>
+        <button onClick={handleAuthenticate} className="button">Authenticate</button>
+      </div>
+      <p className="message">{message}</p>
     </div>
   );
 };
