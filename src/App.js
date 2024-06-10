@@ -9,10 +9,10 @@ const App = () => {
 
   const handleRegister = async () => {
     try {
-      const { data: options } = await axios.post('http://100.26.52.215:3001/api/register-options', { username });
+      const { data: options } = await axios.post('https://yubikey.infisign.net/api/register-options', { username });
       console.log('Registration Options:', options);
       const attestationResponse = await startRegistration(options);
-      const response = await axios.post('http://100.26.52.215:3001/api/register', { username, attestationResponse });
+      const response = await axios.post('https://yubikey.infisign.net/api/register', { username, attestationResponse });
       setMessage(`Registered: ${JSON.stringify(response.data)}`);
     } catch (error) {
       console.error('Registration Error:', error);
@@ -22,10 +22,10 @@ const App = () => {
 
   const handleAuthenticate = async () => {
     try {
-      const { data: options } = await axios.post('http://100.26.52.215:3001/api/auth-options', { username });
+      const { data: options } = await axios.post('https://yubikey.infisign.net/api/auth-options', { username });
       console.log('Authentication Options:', options);
       const assertionResponse = await startAuthentication(options);
-      const response = await axios.post('http://100.26.52.215:3001/api/authenticate', { username, assertionResponse });
+      const response = await axios.post('https://yubikey.infisign.net/api/authenticate', { username, assertionResponse });
       setMessage(`Authenticated: ${JSON.stringify(response.data)}`);
     } catch (error) {
       console.error('Authentication Error:', error);
