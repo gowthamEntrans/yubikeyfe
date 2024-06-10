@@ -9,10 +9,10 @@ const App = () => {
 
   const handleRegister = async () => {
     try {
-      const { data: options } = await axios.post('http://localhost:3001/register-options', { username });
+      const { data: options } = await axios.post('https://yubikeybe.onrender.com/register-options', { username });
       console.log('Registration Options:', options);
       const attestationResponse = await startRegistration(options);
-      const response = await axios.post('http://localhost:3001/register', { username, attestationResponse });
+      const response = await axios.post('https://yubikeybe.onrender.com/register', { username, attestationResponse });
       setMessage(`Registered: ${JSON.stringify(response.data)}`);
     } catch (error) {
       console.error('Registration Error:', error);
@@ -22,10 +22,10 @@ const App = () => {
 
   const handleAuthenticate = async () => {
     try {
-      const { data: options } = await axios.post('http://localhost:3001/auth-options', { username });
+      const { data: options } = await axios.post('https://yubikeybe.onrender.com/auth-options', { username });
       console.log('Authentication Options:', options);
       const assertionResponse = await startAuthentication(options);
-      const response = await axios.post('http://localhost:3001/authenticate', { username, assertionResponse });
+      const response = await axios.post('https://yubikeybe.onrender.com/authenticate', { username, assertionResponse });
       setMessage(`Authenticated: ${JSON.stringify(response.data)}`);
     } catch (error) {
       console.error('Authentication Error:', error);
